@@ -41,3 +41,87 @@ Next i edited the Vagrantfile with micro.
 		
 	end
 
+Then with 'vagrant up' command created the two vm's both running on debian/bullseye64. After the vm's were up and running, tested that i could ssh to both of them.
+
+	$vagrant ssh debian1
+	$vagrant ssh debian2
+
+As screenshot shows ssh, i could ssh to both my machines.
+--screenschot--
+
+### Install salt minion and master and connect minions to master
+
+With vm's now running, to complete my test enviroment i installed salt-minion to both of vm's and salt-master to my own, not virtual, debian.
+Prior to installing salt-minion to vm's i  ran apt-get update and apt-get dist-upgrade to get the machines up to date.
+ 
+	$ sudo apt-get install salt-minion
+	$ sudo apt-get install salt-master
+
+Next i told the minions who their master is and where to connect. 
+With 'hostname -I' command i checked my master's ip and put it in minion's file - minion.
+
+	vagrant@debian1:~$ cd /etc/salt/
+	vagrant@debian1:/etc/salt$ sudo nano minion
+
+	master: 192.168.0.117
+	id: debian1
+	.
+	.
+	.
+
+ Repeated the same to debian2. After making changes i restared salt-minions.
+ Then as a master went to check if minions are waiting to be accepted. 
+ 
+	vagrant@debian2:/etc/salt$ sudo systemctl restart salt-minion #restart
+	
+ 	tuomo@debian:~/miniproject$ sudo salt-key
+ 	Accepted Keys:
+ 	Denied Keys:
+ 	Unaccepted Keys:
+ 	debian1
+ 	debian2
+
+ Next accepted keys for both debian1 and debian2
+
+ 	tuomo@debian:~/miniproject$ sudo salt-key -a debian1
+ 	tuomo@debian:~/miniproject$ sudo salt-key -a debian2
+
+And finally a little test to see if everything is working as it should be.
+
+	tuomo@debian:~/miniproject$ sudo salt '*' cmd.run 'ls /etc/salt/'
+	debian1:
+	    minion
+	    minion.d
+	    minion_id
+	debian2:
+	    minion
+	    minion.d
+	    minion_id
+
+Everything ok.
+
+## Creating my own little salt-state
+
+First created a simple salt-state for testing, apllied the state and at last cheked that the file had been created.
+
+	tuomo@debian:~$ cd /srv/salt
+	tuomo@debian:/srv/salt$ sudo mkdir miniproject
+	tuomo@debian:/srv/salt$ cd miniproject
+	tuomo@debian:/srv/salt/miniproject$ sudo micro init.sls
+
+	/tmp/hello:
+	  file.managed:
+	    - contents: "Hello W"
+
+	tuomo@debian:/srv/salt/miniproject$ sudo salt '*' state.apply miniproject
+
+	tuomo@debian:/srv/salt/miniproject$ sudo salt '*' cmd.run 'cat  /tmp/hello'
+	debian2:
+	    Hello W
+	debian1:
+	    Hello W
+	
+	
+
+
+ 	
