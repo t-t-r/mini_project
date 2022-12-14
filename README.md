@@ -7,6 +7,7 @@ First i needed to set up a couple of virtual machines.
 These virtual machines will in future  act as minions and for me to test my salt project on.
 
 First created a directory for the the project and created a Vagrant file in it with 'vagrant init' command.
+
 	$ mkdir miniproject
 	$ cd miniproject
 	$ vagrant init
