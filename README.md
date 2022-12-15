@@ -1,6 +1,6 @@
-#Miniproggis
+#Miniproject
 
-## Testing that changes take effect
+## A little project for course Configuration Management Systems
 
 ### Setting up a virtual machines with Vagrant and Virtualbox
 First i needed to set up a couple of virtual machines. 
@@ -120,6 +120,10 @@ First created a simple salt-state for testing, apllied the state and at last che
 	    Hello W
 	debian1:
 	    Hello W
+
+Next it was time to do something more.
+
+
 	
 	
 
