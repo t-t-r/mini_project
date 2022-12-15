@@ -121,9 +121,27 @@ First created a simple salt-state for testing, apllied the state and at last che
 	debian1:
 	    Hello W
 
-Next it was time to do something more.
 
-##Sources
+Installing pretty much anything is not too hard at this point. Keeping it simple, decided to install micro.
+
+	micro:
+	  pkg.installed:
+	    - name: micro
+
+added previous to my init.sls file and ran the state again
+
+	Summary for debian1
+	------------
+	Succeeded: 2 (changed=1)
+	Failed:    0
+	------------
+	Total states run:     2
+	Total run time:   3.847 s
+
+Everything went smoothly, micro installed.
+
+
+## Sources
 
 Terokarvinen.com:
 https://terokarvinen.com/2021/two-machine-virtual-network-with-debian-11-bullseye-and-vagrant/
@@ -133,6 +151,7 @@ https://terokarvinen.com/2018/salt-quickstart-salt-stack-master-and-slave-on-ubu
 Salt project Documentation:
 https://docs.saltproject.io/en/latest/	
 	
+Spotify:
 
-
+https://www.spotify.com/fi/download/linux/
  	
