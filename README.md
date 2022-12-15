@@ -123,8 +123,15 @@ First created a simple salt-state for testing, apllied the state and at last che
 
 Next it was time to do something more.
 
+##Sources
 
-	
+Terokarvinen.com:
+https://terokarvinen.com/2021/two-machine-virtual-network-with-debian-11-bullseye-and-vagrant/
+
+https://terokarvinen.com/2018/salt-quickstart-salt-stack-master-and-slave-on-ubuntu-linux/
+
+Salt project Documentation:
+https://docs.saltproject.io/en/latest/	
 	
 
 
